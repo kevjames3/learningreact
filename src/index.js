@@ -75,7 +75,7 @@ const comment = {
 
 ReactDOM.render(
   <div>
-    <Clock />
+    <Clock foo = ""/>
     <Clock />
     <Clock />
   </div>,
