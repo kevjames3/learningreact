@@ -64,23 +64,52 @@ import registerServiceWorker from './registerServiceWorker';
 //   );
 // }
 
-const comment = {
-  date: new Date(),
-  text: 'I hope you enjoy learning React!',
-  author: {
-    name: 'Hello Kitty',
-    avatarUrl: 'http://placekitten.com/g/64/64'
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {isToggleOn: true};
+
+    // This binding is necessary to make `this` work in the callback
+    this.handleClick = this.handleClick.bind(this);
   }
-};
+
+  handleClick() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
+    );
+  }
+}
 
 ReactDOM.render(
-  <div>
-    <Clock foo = ""/>
-    <Clock />
-    <Clock />
-  </div>,
+  <Toggle />,
   document.getElementById('root')
 );
+
+// const comment = {
+//   date: new Date(),
+//   text: 'I hope you enjoy learning React!',
+//   author: {
+//     name: 'Hello Kitty',
+//     avatarUrl: 'http://placekitten.com/g/64/64'
+//   }
+// };
+
+// ReactDOM.render(
+//   <div>
+//     <Clock foo = ""/>
+//     <Clock />
+//     <Clock />
+//   </div>,
+//   document.getElementById('root')
+// );
 
 // ReactDOM.render(
 //   <Comment author={comment.author} text={comment.text} date={comment.date}  />,

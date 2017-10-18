@@ -1,19 +1,19 @@
 import React from 'react';
 
 function FormattedDate(props) {
-  return <h2>It is {props.date}.</h2>;
+  return <h2>It is {props.date.toLocaleTimeString()}.</h2>;
 }
 
 export default class Clock extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {date: 1};
+    this.state = {date: new Date()};
   }
 
   tick(){
     this.setState((prevState) => {
       return {
-        date: prevState.date + 1
+        date: new Date()
       }
     });
   }
