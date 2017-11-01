@@ -9,6 +9,13 @@ function tryConvert(value) {
   return Math.ceil(input);
 }
 
+function updateStateWithValue(field, value){
+  let number = tryConvert(value);
+  let newValue = {};
+  newValue[field] = number;
+  this.setState(newValue)
+}
+
 export default class TickTackToeGame extends React.Component {
   constructor(props){
     super(props);
@@ -31,19 +38,24 @@ export default class TickTackToeGame extends React.Component {
   }
   
   updateHeight(event){
-
+    updateStateWithValue.call(this, "height", event.target.value);
   }
 
   updateWidth(event){
-
+    updateStateWithValue.call(this, "width", event.target.value);
   }
 
   updateSize(event){
     let size = tryConvert(event.target.value);
+    if(size <= -1){
+      size = 0;
+    } else if (size > 75){
+      size = 75;
+    }
+    this.initValues(size);
     this.setState({
         size: size
     });
-    this.initValues(size);
   }
 
   initValues(size){
@@ -65,12 +77,12 @@ export default class TickTackToeGame extends React.Component {
       <div>
         <div>
           <div>Size: <input value={this.state.size} onChange={this.updateSize} /></div>
-          <div>Width: <input onChange={this.updateWidth} /></div>
-          <div>Height: <input onChange={this.updateHeight} /></div>
+          <div>Width: <input value={this.state.width} onChange={this.updateWidth} /></div>
+          <div>Height: <input value={this.state.height} onChange={this.updateHeight} /></div>
         </div>
         <div>
           {this.state.grid.map((row, index) => {
-            return <TickTackRow values={row} key={index}/>
+            return <TickTackRow values={row} key={(index + 1) * row.length}/> //We need the index to be unique or the row looks off
           })}
         </div>
       </div>
